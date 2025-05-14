@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Penalty Game - Meat n' Greet</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: sans-serif;
+      margin-top: 50px;
+      background-color: #f8f8f8;
+    }
+    h1 {
+      color: #c0392b;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #c0392b;
+    }
+    #result, #discount {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Penalty Challenge - Meat n' Greet</h1>
+  <p>Goal: <span id="score">0</span> / 15</p>
+  <button onclick="shoot()">Tendang Bola!</button>
+  <p id="result"></p>
+  <p id="discount"></p>
+
+  <script>
+    let totalShot = 0;
+    let score = 0;
+
+    function shoot() {
+      if (totalShot >= 15) return;
+
+      totalShot++;
+      let chance;
+
+      if (totalShot <= 5) {
+        chance = 0.9; // mudah
+      } else if (totalShot <= 10) {
+        chance = 0.6; // menengah
+      } else {
+        chance = 0.0000001; // mustahil
+      }
+
+      let success = Math.random() < chance;
+      const result = document.getElementById('result');
+
+      if (success) {
+        score++;
+        result.textContent = `Tendangan ke-${totalShot}: GOL!`;
+      } else {
+        result.textContent = `Tendangan ke-${totalShot}: Diselamatkan kiper!`;
+      }
+
+      document.getElementById('score').textContent = `${score}`;
+
+      if (totalShot === 15) {
+        showDiscount();
+      }
+    }
+
+    function showDiscount() {
+      const discount = document.getElementById('discount');
+      if (score >= 15) {
+        discount.textContent = "Selamat! Kamu mendapat DISKON 50%! Gunakan kode: GOAL50 di Meat n' Greet.";
+      } else if (score >= 10) {
+        discount.textContent = "Selamat! Kamu mendapat DISKON 30%! Gunakan kode: GOAL30 di Meat n' Greet.";
+      } else if (score >= 5) {
+        discount.textContent = "Selamat! Kamu mendapat DISKON 25%! Gunakan kode: GOAL25 di Meat n' Greet.";
+      } else {
+        discount.textContent = "Belum dapat diskon, coba lagi!";
+      }
+    }
+  </script>
+</body>
+</html>
